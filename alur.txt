@@ -1,0 +1,72 @@
+CLASS AplikasiCuaca
+  PROPERTIES:
+    kunciApi
+    daftarKota = []
+    offsetZonaWaktu = 0
+    idIntervalWaktu = null
+
+  METHOD mulai()
+    panggil muatDaftarKota()
+    pasang event listener tombol cek -> tombolCekDitekan()
+    pasang event listener input kota -> tampilkanSaran()
+    pasang event listener klik halaman -> hapusSaran() jika klik di luar input dan saran
+
+  METHOD muatDaftarKota()
+    ambil data JSON dari city.list.json
+    filter data kota dengan country = "ID"
+    simpan ke daftarKota
+    jika gagal, tampilkan pesan error
+
+  METHOD tombolCekDitekan()
+    baca nama kota dari input
+    jika kosong, tampilkan peringatan dan hentikan
+    cari kota di daftarKota yang namanya sama dengan input
+    jika tidak ditemukan, tampilkan pesan dan sembunyikan hasil
+    jika ditemukan, panggil ambilCuacaPerId(idKota)
+    hapus saran autocomplete
+
+  METHOD ambilCuacaPerId(idKota)
+    buat URL API dengan idKota dan kunciApi
+    fetch data dari API
+    jika gagal, tampilkan error dan sembunyikan hasil
+    jika berhasil, simpan offsetZonaWaktu dari data
+    panggil tampilkanCuaca(data)
+    panggil mulaiJam()
+
+  METHOD tampilkanCuaca(data)
+    tampilkan nama kota, deskripsi cuaca, suhu
+    panggil perbaruiWaktuLokal()
+    tampilkan elemen hasil cuaca
+
+  METHOD perbaruiWaktuLokal()
+    hitung waktu UTC sekarang
+    hitung waktu lokal = waktu UTC + offsetZonaWaktu
+    tampilkan waktu lokal di halaman
+
+  METHOD mulaiJam()
+    jika ada interval sebelumnya, hentikan
+    buat interval baru untuk jalankan perbaruiWaktuLokal() setiap 1 detik
+
+  METHOD sembunyikanHasil()
+    sembunyikan elemen hasil cuaca
+
+  METHOD kapitalHurufPertama(teks)
+    jika teks kosong, kembalikan ""
+    ubah huruf pertama menjadi kapital
+    kembalikan hasil
+
+  METHOD tampilkanSaran()
+    hapus semua saran dulu
+    jika input kurang dari 2 karakter, hentikan
+    cari maksimal 10 kota yang namanya diawali dengan input
+    buat elemen saran untuk tiap kota dan tampilkan
+    pasang event klik pada saran untuk isi input dan hapus saran
+
+  METHOD hapusSaran()
+    kosongkan kontainer saran autocomplete
+
+END CLASS
+
+// Jalankan aplikasi
+buat objek aplikasiCuaca dengan kunci API
+panggil aplikasiCuaca.mulai()

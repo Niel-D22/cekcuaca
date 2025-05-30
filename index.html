@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Penampil Cuaca & Waktu Indonesia</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Cek Cuaca & Waktu di Kota Indonesia</h1>
+      <input
+        type="text"
+        id="cityInput"
+        autocomplete="off"
+        placeholder="Masukkan nama kota..."
+      />
+      <div id="suggestions" class="suggestions"></div>
+      <button id="checkButton">Cek</button>
+
+      <div id="result" class="hidden">
+        <h2 id="cityName"></h2>
+        <p><strong>Cuaca:</strong> <span id="weatherDesc"></span></p>
+        <p><strong>Suhu:</strong> <span id="temperature"></span> °C</p>
+        <p><strong>Waktu Lokal:</strong> <span id="localTime"></span></p>
+      </div>
+    </div>
+
+    <script src="alpro.js"></script>
+  </body>
+</html>

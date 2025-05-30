@@ -1,0 +1,88 @@
+# Aplikasi Cuaca Sederhana
+
+## Deskripsi Singkat
+Aplikasi ini digunakan untuk menampilkan data cuaca berdasarkan nama kota di Indonesia.  
+Data kota dimuat dari file JSON, lalu data cuaca diambil dari API OpenWeatherMap berdasarkan ID kota.
+
+---
+
+## Mengapa Perlu File `city.list.json`?
+
+- File `city.list.json` berisi daftar lengkap kota-kota di seluruh dunia, termasuk Indonesia.
+- Aplikasi ini menggunakan file ini untuk:
+  - Menyaring dan menyimpan hanya kota-kota yang ada di Indonesia (country code "ID").
+  - Membantu melakukan pencarian kota secara akurat berdasarkan nama yang dimasukkan user.
+  - Mendapatkan **ID kota** yang diperlukan untuk mengambil data cuaca dari API OpenWeatherMap.
+- Tanpa file ini, aplikasi tidak bisa mengetahui ID kota yang sesuai, sehingga tidak bisa mengambil data cuaca dengan tepat.
+
+---
+
+## Algoritma dan Fungsi yang Digunakan
+
+| Fungsi / Method       | Kegunaan                                                                                           |
+|----------------------|--------------------------------------------------------------------------------------------------|
+| **constructor(kunciApi)**  | Menyimpan kunci API untuk akses data cuaca, dan menyiapkan variabel untuk data kota, waktu, dll. |
+| **mulai()**           | Memulai aplikasi, memuat daftar kota, dan memasang event listener untuk tombol dan input kota.   |
+| **muattDaftarKota()** | Mengambil data kota dari file JSON, lalu menyaring hanya kota di Indonesia dan menyimpannya.      |
+| **tombolCekDitekan()**| Saat tombol dicek ditekan, mencari kota sesuai input dan memanggil fungsi untuk ambil data cuaca. |
+| **ambilCuacaPerId(id)**| Mengambil data cuaca dari API OpenWeatherMap berdasarkan ID kota, simpan offset zona waktu.      |
+| **tampilkanCuaca(data)**| Menampilkan nama kota, suhu, deskripsi cuaca, dan waktu lokal di halaman web.                    |
+| **perbaruiWaktuLokal()**| Menghitung waktu lokal berdasarkan zona waktu dari API dan menampilkannya di halaman.           |
+| **mulaiJam()**        | Memulai timer untuk update waktu lokal setiap detik.                                              |
+| **sembunyikanHasil()**| Menyembunyikan hasil cuaca di halaman web.                                                       |
+| **kapitalHurufPertama(teks)**| Mengubah huruf pertama dari teks menjadi kapital.                                           |
+| **tampilkanSaran()**  | Menampilkan daftar saran nama kota berdasarkan input user (autocomplete).                         |
+| **hapusSaran()**      | Menghapus daftar saran autocomplete dari halaman.                                                |
+
+---
+
+## Penjelasan `this`
+
+- `this` merujuk ke **objek instance dari kelas** yang sedang berjalan.
+- Contoh: Dalam `this.daftarKota`, `this` adalah objek aplikasi cuaca, dan `daftarKota` adalah properti miliknya.
+- Fungsi menggunakan `this` untuk mengakses properti dan method dalam satu objek agar data dan fungsi tetap terorganisir dan tidak tumpang tindih dengan objek lain.
+
+---
+
+## Fungsi JavaScript dan Fitur yang Digunakan
+
+| Fitur/Fungsi JS               | Kegunaan                                                                                   |
+|------------------------------|--------------------------------------------------------------------------------------------|
+| `fetch()`                    | Untuk mengambil data dari file JSON atau API secara asynchronous (HTTP request).          |
+| `.then()` dan `.catch()`      | Untuk menangani response Promise dari `fetch()`, baik saat berhasil atau terjadi error.   |
+| `addEventListener()`          | Untuk mendaftarkan event handler, seperti klik tombol atau input teks.                    |
+| `document.getElementById()`   | Mengambil elemen HTML berdasarkan ID untuk manipulasi DOM.                                |
+| `class` dan `constructor`     | Sintaks untuk membuat class dan objek di JavaScript modern (ES6+).                        |
+| `setInterval()` dan `clearInterval()` | Untuk menjalankan fungsi berulang (update waktu) dan menghentikannya.            |
+| `toLocaleTimeString()`        | Untuk mengubah objek Date menjadi string waktu lokal dengan format tertentu.              |
+| `trim()`                     | Untuk menghapus spasi kosong di awal dan akhir string.                                   |
+| `toLowerCase()`               | Untuk mengubah string menjadi huruf kecil (case-insensitive matching).                    |
+| `filter()` dan `find()`       | Array method untuk mencari data sesuai kondisi tertentu.                                 |
+| `createElement()` dan `.appendChild()` | Untuk membuat elemen HTML baru dan menambahkannya ke halaman (DOM manipulation). |
+
+---
+
+## Contoh Alur Kerja Aplikasi
+
+1. Objek aplikasi dibuat dengan kunci API.
+2. Fungsi `mulai()` dipanggil untuk:
+   - Memuat daftar kota Indonesia dari file JSON.
+   - Memasang event listener untuk tombol cek dan input kota.
+3. User mengetik nama kota di input.
+4. Saat mengetik, fungsi autocomplete `tampilkanSaran()` menampilkan kota yang cocok.
+5. User klik tombol cek.
+6. Fungsi `tombolCekDitekan()` mencari kota yang cocok, lalu panggil `ambilCuacaPerId()` untuk ambil data cuaca.
+7. Setelah data diterima, aplikasi menampilkan cuaca dan mulai memperbarui waktu lokal secara otomatis.
+
+---
+
+## Cara Menjalankan
+
+1. Pastikan ada file `city.list.json` berisi data kota Indonesia.
+2. Buka halaman HTML yang memuat skrip aplikasi ini.
+3. Masukkan kunci API OpenWeatherMap kamu di pembuatan objek kelas `AplikasiCuaca`.
+4. Jalankan aplikasi dan gunakan input untuk cek cuaca kota.
+
+---
+
+Kalau ada yang kurang jelas atau ingin tambahan penjelasan, silakan tanya!  

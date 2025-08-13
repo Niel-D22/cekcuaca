@@ -1,1 +1,1 @@
-cek suhu dan cuaca kota di indonesia
+cek suhu dan cuaca ,kota di indonesia
